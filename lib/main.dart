@@ -50,7 +50,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
+  int currentPageIndex = 0;
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -87,31 +87,45 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Align(
-        alignment: Alignment.bottomRight,
-        child :
+      body: 
+        <Widget>[
+        Container(       
+          child: ListView( 
+            children : <Widget>[
+              const Text(
+                'Nombre :',
+              ),
+              Text(
+                '$_counter',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Image.network("https://i.pinimg.com/736x/ce/28/24/ce28247e6760357c77c94401c6429995.jpg", width: 100, height: 100),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Image.asset("images/DEYROS.png", width: 250, height: 250),
+              ),
+            ],
+          ),
+        ),
+        Container(       
+          child: ListView( 
+            children : <Widget>[
+              const Text(
+                'Générer un nombre aléatoire entre 0 et $_counter',
+              )
+            ],
+          ),
+        ),
         Container(
-        child: ListView(
-          children: <Widget>[
-            const Text(
-              'Nombre :',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: Image.network("https://i.pinimg.com/736x/ce/28/24/ce28247e6760357c77c94401c6429995.jpg", width: 500, height: 500),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Image.asset("images/DEYROS.png", width: 250, height: 250),
-            ),
-          ]
-        )
-      )
-      ),
+          color: Colors.green,
+          alignment: Alignment.center,
+          child: const Text('Page suivante'),
+        ),
+      ][currentPageIndex],
+        
       floatingActionButton: Stack(
       children: <Widget>[
         Padding(padding: EdgeInsets.only(left:31),
@@ -141,6 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
 bottomNavigationBar: NavigationBar(
         onDestinationSelected: (int index) {
           setState(() {
+            currentPageIndex = index;
         });
         },
         destinations: const <Widget>[
